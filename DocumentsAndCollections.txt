@@ -1,0 +1,68 @@
+In mongoDB collezioni e documenti servono per la gestione dei dati.
+
+Una collezione e' un gruppo di documenti MongoDB.
+-Non e'necessario definire uno schema per le collezioni
+-I documenti all interno di una collection possono avere strutture diverse
+-Le collezioni si creano automaticamente quando si inserisce il primo documento
+
+I documenti sono le unita' di dati MongoDB 
+
+-Sono rappresentate in BSON che e' una struttura molto simile al JSON
+-Possiamo pensare ai documenti come ai record delle tabelle nei db relazionali
+-Sono costituiti da coppie chiave-valore , le chiavi sono stringhe e i valori
+possono essere di vari tipi di dati , anche array , oggetti , date , ecc.
+-Ogni documento ha il campo _id univoco per la sua identificazione all interno della collezione
+
+Operazioni sulle collezioni:
+
+# db.createCollection()
+crea una collezione
+
+# db.getCollectionNames()
+elenca tutte le collezioni
+
+# db.collectionName.drop()
+elimina un a collezione
+
+Operazioni sui documenti:
+
+# db.collectionName.insertOne()
+inserisce un documento alla collezione
+
+# db.collectionName.insertMany()
+inserisce piu' documenti  alla collezione
+
+# db.collectionName.find()
+trova documenti
+
+#db.collectionName.updateOne()  -  db.collectionName.updateMany()
+aggiurna uno o piu documenti
+
+#db.collectionName.deleteOne()  -  db.collectionName.deleteMany()
+elimina uno o piu documenti
+
+Esempio:
+#codice JavaScript
+
+use libreria; // Seleziona o crea il database "libreria"
+db.createCollection("libri"); // Crea la collezione "libri"
+
+
+db.libri.insertMany([
+    { titolo: "Il Signore degli Anelli", autore: "J.R.R. Tolkien", anno: 1954 },
+    { titolo: "1984", autore: "George Orwell", anno: 1949 },
+    { titolo: "Il Grande Gatsby", autore: "F. Scott Fitzgerald", anno: 1925 }
+]);
+
+
+db.libri.find(); // Trova tutti i documenti nella collezione "libri"
+
+db.libri.updateOne(
+    { titolo: "1984" }, // Filtro per trovare il documento
+    { $set: { anno: 1950 } } // Aggiorna l'anno
+);
+
+db.libri.deleteOne({ titolo: "Il Grande Gatsby" }); // Elimina il documento con il titolo specificato
+
+
+

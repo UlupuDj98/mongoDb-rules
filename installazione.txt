@@ -1,0 +1,32 @@
+#andare su:
+ https://www.mongodb.com/try/download/community
+scaricare dal download la versione per il proprio sistema operativo e la 
+propria architettura del processore
+
+#nel mio caso ho Ubuntu quindi devo andare nella mia cartella download:
+
+sudo dpkg -i <mongocommunity.deb>
+#installazione di un pacchetto deb
+sudo apt-get install -f
+#installa le dipendenze aggiuntive
+
+#andare su:
+https://www.mongodb.com/try/download/compass
+
+scaricare mongodb-compass
+
+sudo dpkg -i <mongocompass.deb>
+#installazione di un pacchetto deb
+sudo apt-get install -f
+#installa le dipendenze aggiuntive
+
+scaricare mongosh per dare dei comandi dal terimale a mongodb
+
+https://www.mongodb.com/try/download/compass
+
+sudo dpkg -i <mongodb-mongosh.deb>
+#installazione di un pacchetto deb
+sudo apt-get install -f
+#installa le dipendenze aggiuntive
+
+i tool compass e shell sono molto utili

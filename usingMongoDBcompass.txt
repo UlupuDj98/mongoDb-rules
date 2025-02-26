@@ -1,0 +1,41 @@
+Avvia mongodb con il comando
+# sudo systemctl start mongod
+
+avviare da terminale mongodb-compass con il comando
+# mongodb-compass
+
+creare una connection (usare quella di default)
+mongodb://localhost:27017
+
+una volta creato l utente, andare vicino al nome utente sul simbolo della piu'
+creare database: nomedb
+creare una collection: nomecollection
+
+andare sulla collection su add data(document):
+{
+  "_id": {
+    "$oid": "67bfa28da9c318063bc51c8b"
+  },
+  
+  "title": "Nome della rosa",
+  "author": "Marco Gullo",
+  "pages": 300,
+  "genres": ["fantasy", "magical"],
+  "rating": 7
+
+}
+
+gli diamo questo BSON
+#viene inserito correttamente
+
+per fare inserimenti multipli basta mettere le parentesi quadre : []
+e mettere i file json separati dalle virgole.
+#NB gli _id vengono assegnati automaticamente da mongo
+
+Si possono svolgere delle semplici query dalla barra delle ricerche , dando 
+come filtro il field che ci interessa. ad esempio andiamo nei filter
+# {rating : 9}
+ci mostrera i libri con il rating di 9
+
+
+
