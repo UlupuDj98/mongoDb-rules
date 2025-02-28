@@ -1,0 +1,16 @@
+{
+  "name": "testconnection",
+  "version": "1.0.0",
+  "description": "test di connessione a MongoDB utilizzando nodeJS",
+  "license": "ISC",
+  "author": "Marco Gullo",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongodb": "^6.13.1"
+  }
+}

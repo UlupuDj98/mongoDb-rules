@@ -1,0 +1,42 @@
+In MongoDB, le query sugli array possono essere utilizzate per cercare
+documenti che contengono array di valori o array di oggetti.
+
+Query sugli array:
+
+db.books.find({genres: "fantasy"})
+#Query per cercare libri con il genere fantasy
+
+db.books.find({genres : ["magic"]})
+#Query per cercare libri che hanno un unico genere , ovvero fantasy
+
+db.books.find({genres : ["fantasy"]})
+#Stessa di prima ma con magic
+
+db.books.find({genres : ["magic" , "fantasy"]})
+#Query che cerca libri con due generi : magic e fantasy
+
+db.books.find({genres : {$all : ["fantasy" , "sci-fi"]}})
+#Restituisce documenti che hanno entrambi i generi , l array puo'
+#contenere altri generi. $all si usa per vedere la presenza di piu valori in un array
+
+
+Array di oggetti
+
+db.books.find({"reviews.name" : "Bob"})
+#reviews , che e' un array di oggetti ha un campo chiamato name.
+#La query restituira' i document in cui reviews.name sara' uguale a Bob
+
+
+db.books.find({ "reviews": { $elemMatch: { name: "Marco", rating: { $gt: 3 } } } })
+#Query che grazie a $elemMatch prende i requisiti dell oggetto quali:
+name e rating
+#e fa una AND logica restituendo il document se sono vere entrambe
+
+db.books.find({ "reviews.name": { $in: [ "Alice", "Bob" ] }  })
+#Query che restituisce document che hanno come recensori sia Alice che Bob graze a $in
+(non e' una AND logica , funziona anche se una non e' vera)
+
+db.books.find({ "reviews.rating": { $gt: 2 } })
+#Query che restituisce i libri che hanno nelle reviews un rating maggiore di 2
+
+

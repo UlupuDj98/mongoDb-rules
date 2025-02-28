@@ -1,0 +1,136 @@
+I nested document o documenti annidati , sono document che contengono
+al loro interno altri document come valori di uno o piu'campi
+
+Il modello di dati usato da mongoDB e' basato sui BSON (Binary JSON)
+
+Hanno una struttura gerarchica ovvero ci sono documenti principali che
+contengono uno o piu' documenti secondari
+
+Sono flessibili perche' non seguono uno schema rigido. Ogni documento puo'
+avere una sua struttura , il che consente di adattarsi facilmente a cambiamenti
+nei requisiti dei dati
+
+Per accedere ai campi dei Nested Document si utilizza la notazione a punti.
+Se un documento ha un campo che e' un documento annidato, puoi accederea i campi
+del documento annidato in questo modo:
+# documento.campoAnnidato.campo
+
+Esempio pratico con un ipotetica collection chiamata: users
+
+{
+  "_id": 1,
+  "name": "Marco Gullo",
+  "age": 30,
+#campo profile
+  "profile": {
+    "email": "marco@example.com",
+    "phone": "123-456-7890"
+  },
+  "addresses": [
+    {
+      "type": "home",
+      "street": "Via Roma 1",
+      "city": "Roma",
+      "country": "Italia"
+    },
+    {
+      "type": "work",
+      "street": "Via Milano 2",
+      "city": "Milano",
+      "country": "Italia"
+    }
+  ]
+#campo addresses
+}
+
+Il campo profile e' un documento annidato con le informazioni
+sull utente
+
+Il campo addresses e' un array di documenti annidati che rappresentano
+gli indirizzi dell' utente.
+
+Esempi di query:
+
+db.users.find({_id: 1} , {"profile.email" : 1})
+#ottenere l email dell utente 1
+
+db.users.find({ _id: 1 }, { "addresses.0": 1 })
+#accedere al primo indirizzo , ovvero al primo documento annidato
+#dell array addresses
+
+I nested documents in MongoDB servono a rappresentare dati complessi
+in strutture gerarchiche , migliorando la loro gestione e comprensione
+
+Riducono i join complessi, poiche i dati correlati possono essere memorizzati
+insieme in un singolo document.
+
+Esempi con il db bookstore
+
+{
+ "title" : "The way of Kings",
+ "genres" : ["fantasy" , "sci-fi"],
+ "rating" : 9,
+ "author" : "Marco Gullo"
+ "_id" : ObjectId("afe65445612"),
+ "stock" : {
+	"count" : 21,
+	"price" : 7.99
+ }
+
+}
+#esempio con il documento annidato stock
+
+{
+ "title" : "Carlitos way",
+ "genres" : ["fantasy" , "sci-fi"],
+ "rating" : 9,
+ "author" : "Marco Gullo",
+ "pages" :150
+ "_id" : ObjectId("afe65445612"),
+ "reviews" : [ 
+       { "name" : "Great Read!", "body" : "Lorem ispum...."},
+       { "name" : "My fav every book", "body" : "Lorem ispum...."}
+ ]
+
+}
+#esempio con un array di document innestato
+
+db.books.insertMany([
+    {
+        "title": "Nome del vento",
+        "author": "Marco Gullo",
+        "pages": 500,
+        "genres": ["fantasy", "magical"],
+        "rating": 9,
+        "reviews": [
+            {
+                "name": "Alice",
+                "body": "Un libro straordinario che cattura l'immaginazione."
+            },
+            {
+                "name": "Bob",
+                "body": "Una narrazione avvincente e personaggi ben sviluppati."
+            }
+        ]
+    },
+    {
+        "title": "Il Signore degli Anelli",
+        "author": "J.R.R. Tolkien",
+        "pages": 1178,
+        "genres": ["fantasy", "adventure"],
+        "rating": 10,
+        "reviews": [
+            {
+                "name": "Charlie",
+                "body": "Un capolavoro della letteratura fantasy."
+            },
+            {
+                "name": "Diana",
+                "body": "Un viaggio epico che non si dimentica facilmente."
+            }
+        ]
+    }
+]);
+
+
+#inserimento multiplo di nested documents

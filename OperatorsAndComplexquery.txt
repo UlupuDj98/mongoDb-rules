@@ -1,0 +1,50 @@
+Vediamo ora qualche query leggermente piu complessa
+Due di queste utilizzano l operatore logico or
+
+
+# Query per libri con rating maggiore di 7
+db.books.find({ rating: { $gt: 7 } })
+
+# Query per libri con rating minore di 7
+db.books.find({ rating: { $lt: 7 } })
+
+# Query per libri scritti da Marco Gullo con un rating maggiore di 7
+db.books.find({ rating: { $gt: 7 }, author: "Marco Gullo" })
+
+# Query per libri con rating uguale a 7 o 9
+db.books.find({ $or: [{ rating: 7 }, { rating: 9 }] })
+
+# Query per libri con meno di 300 pagine o più di 400 pagine
+db.books.find({ $or: [{ pages: { $lt: 300 } }, { pages: { $gt: 400 } }] })
+
+$gt sta per greater than
+$lt sta per less than
+
+
+Utilizzo di $in e $nin
+Sono operatori utilizzati per filtrare i documenti in base ad un array 
+di valori
+
+$in consente di selezionare i documenti in cui il valore di un campo 
+corrisponde a uno qualsiasi dei valori specificati in un array.
+E' utile quando si desidera trovare documenti che soddisfano una delle 
+molteplici condizioni
+
+$nin invece e' l' opposto di $in.
+Seleziona i documenti in cui il valore di un campo non corrispone a nessuno
+dei valori specificati in un array. Serve a escludere documenti che
+soddisfano determinate condizioni
+
+Vediamo alcune query che utilizzano questi due operatori:
+
+db.books.find({rating : {$in: [7,8,9]}})
+#tutti i libri che hanno uno di questi valori come rating
+
+#query equivalente con $or
+db.books.find({$or : [{rating : 7} , {rating : 8} , {rating : 9}]})
+#con $in abbiamo una query piu' compatta
+
+db.books.find({rating : {$nin : [7,8,9]}})
+#query che fa l' opposto della precedente
+
+

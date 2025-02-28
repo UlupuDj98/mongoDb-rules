@@ -1,0 +1,29 @@
+Facciamo alcuni esempi di modifica dei documents
+In questi esempi vedremo la modifica .updateOne() e la modifica .updateMany()
+
+Questi due metodi per eseguire query si possono articolare in diversi modi
+e sono studiati per fare pattern-matching nel migliore dei modi con i dati
+
+Eccoci a lavoro :
+
+
+db.books.updateOne({_id : ObjectId("<id>")}, {$set: {rating: 8, pages : 360}})
+#in questa query di modifica di un singolo document, per prima cosa diamo
+# l' _id , poi tramite $set , modifichiamo i campi interessati
+
+db.books.updateMany({author : "Marco Gullo" , {$set: {author : "Mario Gullo"}}})
+# qui invece l' intento e' modificare in piu' documenti il field author
+
+db.books.updateOne({_id : ObjectId("<id>")}, {$inc : {pages : 2}})
+#modifichiamo il numero di pagine del libro specificato incrementandole di 2
+
+db.books.updateOne({_id : ObjectId("<id>")}, {$inc : {pages : -2}})
+#analoga modifica , ma in negativo
+
+db.books.updateOne({{_id : ObjectId("<id>")}, {$pull : {genres : {"fantasy"}})
+#qui invece leviamo dall' array dei generi appartenente a questo document
+#la stringa "fantasy"
+
+db.books.updateOne({{_id : ObjectId("<id>")}, {$push : {genres : {"sci-fi"}})
+#qui , al contrario di $pull , inseriamo all' interno dell array un altro genere
+#la stringa "sci-fi"

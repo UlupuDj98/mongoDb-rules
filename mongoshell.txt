@@ -1,0 +1,105 @@
+I comandi per fare le operazioni di:
+
+-Creazione
+-Modifica
+-Eliminazione
+-Ricerche e Letture
+
+tutto a portata di shell
+
+#per usarla da terminale bisogna installarla (vedere installazione)
+
+In questo caso usiamo la shell di mongodb-compass
+
+show dbs
+#mostra i databases presenti
+
+use bookstore
+#siamo all interno del db bookstore
+
+show collections
+#ci mostrera le nostre collections
+
+db
+#ci rispondera con il nome del db che stiamo usando
+
+#possiamo definire delle variabili es:
+var name = "Marco"
+#digito name e mi restituisce:
+Marco
+
+db.books e' l' equivalente di scrivere bookstore.books
+#indichiamo la collection cosi'
+
+db.books.insertOne({title : "Moon" , author "Maria Rossi" , pages : 300 , rating : 7 , genres : ["fantasy" , "magic"]})
+#usiamo la books del db per inserire con questo comando un document
+
+#ci rispondera' , in caso di successo , con un acknowledged true e l _id dell' oggetto
+
+db.authors.insertOne({name : "Marco Gullo" , age : 26})
+
+#avremo un altro acknowledged true , il db crea in automatico la collection authors
+
+db.books.insertMany([{title : "Moon" , author "Maria Rossi" , pages : 300 , rating : 7 , genres : ["fantasy" , "magic"]}, {title : "Moon" , author "Maria Rossi" , pages : 300 , rating : 7 , genres : ["fantasy" , "magic"]}])
+
+#con questo comando possiamo aggiungere piu documents nella collection simultaneamente
+
+
+
+Passiamo ora al finding dei Documents
+
+db.books.find()
+#ci mostrera tutti i nostri documents della collection book
+
+db.books.find({author : "Marco Gullo"})
+#ci dara come risultato i documents con Marco Gullo come author
+
+db.books.find({author : "Marco Gullo" , rating :7 })
+#ci dara come risultato i documents con Marco Gullo come author
+#e con il rating 7
+
+db.books.find({author : "Marco Gullo"} , {title :1 , author : 1}
+#con questa query verra mostrato solo l author e il titolo del libro
+#e nessun altro field
+
+db.books.find({},{author : 1 , title : 1})
+#visualizza i titoli di tutti i libri
+
+db.books.findOne({_id : ObjectId("<id>")})
+#query tramite id
+
+
+
+Sorting e Limiting dei dati in mongo
+
+db.books.find().count()
+#ci restituira il numero dei documents
+
+db.books.find({author : "Marco Gullo"}).count()
+#conta i libri di cui l author e' Marco Gullo
+
+db.books.find().limit(3)
+#restituira i primi 3 documents
+
+db.books.find().sort({ title : -1})
+#restituira in ordine alfabetico decrescente per titolo
+
+db.books.find().sort({ title : 1})
+#restituira in ordine alfabetico per titolo
+
+db.books.find().sort({ title : 1}).limit(3)
+#restituira in ordine alfabetico dei titoli dei libri solo i primi 3 documents
+
+
+
+
+
+
+
+
+possiamo utilizzare anche direttamente da terminale la shell mongosh
+# digitando il comando : mongosh
+
+
+
+

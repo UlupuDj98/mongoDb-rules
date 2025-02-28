@@ -1,0 +1,18 @@
+
+Esportiamo il JSON e salviamolo in una directory prima di provare il  deleting
+
+db.books.find()
+#mostra tutta la collection
+
+db.books.deleteOne({_id : ObjectId("<id>")})
+#elimina il document grazie al field indicato
+avremo come output la conferma con acknowledgment true
+
+db.books.deleteMany({author : "Marco Gullo"})
+#elimina i documents che soddisfano questo field
+
+db.books.find()
+#verifichiamo quali sono rimasti
+
+reimportiamo il nostro JSON che abbiamo esportato prima in modo
+da poter continuare a lavorare!
