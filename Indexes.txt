@@ -1,0 +1,22 @@
+Gli indici in MongoDB sono strutture dati che migliorano la velocita nelle ricerche
+COnsentono a MongoDB di trovare i document piu' rapidamente senza dover eseguire
+scansioni complete nella collezione
+
+
+db.books.find({rating : 8}).explain('executionStats')
+#in questa query , con l utilizzo di .explain('executionStats') , vengono fornite
+#statistiche sull esecuzione della query.
+#Esegue una ricerca pe rating uguale a 0 , restituisce info come il numero
+#di documenti analizzati e quelli restituiti 
+
+
+db.books.createIndex({rating : 8})
+#crea un indice sul campo rating per eseguire ricerce piu veloci su questo campo
+
+
+
+db.books.getIndexes()
+#restituisce tutti gli indici nella collection books
+
+db.books.dropIndex({rating : 8})
+#elimina l index creato prima

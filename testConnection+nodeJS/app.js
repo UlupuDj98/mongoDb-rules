@@ -29,15 +29,22 @@ connectToDb((err) => {
 
 // Definisce le route dell'applicazione
 
-// Quando viene effettuata una richiesta GET all'endpoint '/books'
+//viene effettuata una richiesta GET all'endpoint '/books'
 app.get('/books', (req, res) => {
+
+    //current page
+    const page = req.query.p || 0  // imposto page che corrispondera'a p all interno del path
+    const booksPerPage = 3  //imposto il numero di libri per pagina che voglio visualizzare
+
     // Inizializza un array per memorizzare i libri
     let books = [];
-    
+
     // Esegui la query per trovare i libri
     db.collection('books')
        .find()  
        .sort({ author: 1 }) // Ordina i risultati per autore in ordine crescente
+       .skip(page * booksPerPage)
+       .limit(booksPerPage)
        .toArray() // Correzione: usa toArray() per ottenere i risultati come array
        .then((results) => {
            // Aggiungi i risultati all'array books
@@ -49,6 +56,11 @@ app.get('/books', (req, res) => {
            res.status(500).json({ error: 'Could not fetch the documents' }); // Risposta di errore
        });
 });
+
+//esempio di funzionamento della paginazione implementata con i metodi .skip() e  .limit()
+//page = 0 e booksPerPage = 3
+// 0 * 3  = salto 0 documenti e ne restituisco 3
+// 1 * 3 = salto i primi 3 e restituisco i secondi 3 , e cosi' via
 
 app.get('/books/:id', (req, res) => {
     // Controlla se l'ID fornito è valido
